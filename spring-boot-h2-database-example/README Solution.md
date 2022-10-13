@@ -8,7 +8,8 @@ La API contiene un archivo de propiedades con los datos de conexión a la base d
 Debe cambiar los valores fijos para usar los valores que proporcionará el secreto/mapa de configuración que creará
 
 ## Pasos
-1 - Crear el secret y configmap de acuerdo con la necesidad.
+- Crear el secret y configmap de acuerdo con la necesidad.
+```yaml
 -----
 kind: ConfigMap
 apiVersion: v1
@@ -26,10 +27,12 @@ data:
   OPENSHIFT_H2_USERNAME: c2E=
 type: Opaque
 ----
+```
 
 ## Los valores del usuario y clave son *sa* en base64
 
-2 - Añadir referencia de configmap y secret al deployment.
+- Añadir referencia de configmap y secret al deployment.
+```yaml
 .....
 template:
     spec:
@@ -51,7 +54,8 @@ template:
                     name: santander-db-secret
                     key: OPENSHIFT_H2_USERNAME
 .....
-3 - Cambie los datos del archivo application.properties para usar los valores de la secret/configmap     
+```
+- Cambie los datos del archivo application.properties para usar los valores de la secret/configmap     
 ```console
     spring.datasource.url=${OPENSHIFT_H2_DB_HOST}
     spring.datasource.driverClassName=org.h2.Driver
@@ -59,17 +63,19 @@ template:
     spring.datasource.password=${OPENSHIFT_H2_PASSWORD}
     spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 ```
-4 - desplegar la api a Openshift con Jenkins.
+- desplegar la api a Openshift con Jenkins.
 
-5 - Validar la API.
+- Validar la API.
     Dentro de la consola openshift abra POD y vaya a la pestaña Terminal, luego ejecute los comandos
+    ```console
     - POST:
-        - curl --location --request POST 'http://localhost:8080/student' \
-                --header 'Content-Type: application/json' \
-                --data-raw '{
-                    "id": 1,
-                    "name": "Test",
-                    "age": 30,
-                    "email": "test@santander"}'
+            - curl --location --request POST 'http://localhost:8080/student' \
+                    --header 'Content-Type: application/json' \
+                    --data-raw '{
+                        "id": 1,
+                        "name": "Test",
+                        "age": 30,
+                        "email": "test@santander"}'
     - GET:
         - curl -v http://localhost:8080/student    
+    ```
