@@ -1,0 +1,23 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: spring-boot-h2-database-example
+  labels:
+    app: spring-boot-h2-database-example
+    app.kubernetes.io/component: spring-boot-h2-database-example
+    app.kubernetes.io/instance: spring-boot-h2-database-example
+    app.kubernetes.io/name: ''
+    app.openshift.io/runtime: ''
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+spec:
+  ports:
+    - name: http-8080
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: spring-boot-h2-database-example
+    deploymentConfig: spring-boot-h2-database-example
+  type: ClusterIP
+  sessionAffinity: None

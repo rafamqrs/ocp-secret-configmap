@@ -1,0 +1,22 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: spring-boot-h2-database-example
+  labels:
+    app: spring-boot-h2-database-example
+    app.kubernetes.io/component: spring-boot-h2-database-example
+    app.kubernetes.io/instance: spring-boot-h2-database-example
+    app.kubernetes.io/name: ''
+    app.openshift.io/runtime: ''
+  annotations:
+    openshift.io/host.generated: 'true'
+spec:
+  to:
+    kind: Service
+    name: spring-boot-h2-database-example
+    weight: 100
+  tls:
+    termination: edge
+  port:
+    targetPort: http-8080
+  wildcardPolicy: None

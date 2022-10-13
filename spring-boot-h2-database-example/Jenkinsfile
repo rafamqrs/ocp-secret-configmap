@@ -1,0 +1,32 @@
+#!groovy
+@Library(['jobs-libraries@master', 'deploy-libraries@master']) _
+
+runPipelineWithParams (
+    [
+        PPM: 'INI000',
+        PROJECT_CODE: '',
+        PROJECT_TYPE: 'openshift/backend/springboot',
+        // Solo para microservicios Springboot
+        TARGET_TO_STASH: 'target/*.jar', 
+       // MAVEN_COMMAND: 'mvn compile package',
+        MAVEN_COMMAND: 'mvn package -Dmaven.test.skip=true',
+         
+        // solo proyectos que despliegan en Openshift
+        OCP_PROJECT_NAME: 'staging',
+        OCP_APP_NAME: 'api',
+        OCP_APP_SUB_NAME: '-starter',
+        OCP_CLUSTER_NAME: 'chi01.chi',
+        
+        DOCKER_BASE_IMAGE_BUILD: 'qa/chile-qa-build:jdk11',
+
+        // Parámetros para publicación reportes UNIT TEST en JIRA
+        ID_TEST_PLAN: '',
+        ID_TEST: '',
+        RESUMEN_TEST_EXECUTION: '',
+        DESCRIPCION_TEST_EXECUTION: '',
+        CORREOS: '',
+
+        USE_JENKINS_PROPERTIES: true
+    ]
+)
+
