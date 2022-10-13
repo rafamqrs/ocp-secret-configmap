@@ -8,10 +8,10 @@ Un simple ejercicio a configurar una api con una base de datos atraves de config
 - Configurar la api con configmaps y secrets.
 
 ## Pasos
-1 - Hacer el desplegue de la api.
-2 - Crear el secret y config de acuerdo con la necesidad.
-3 - Cambiar los datos de deployment.
-4 - Validar la API.
+- Hacer el desplegue de la api.
+- Crear el secret y config de acuerdo con la necesidad.
+- Cambiar los datos de deployment.
+- Validar la API.
     - GET:
         - curl -v http://localhost:8080/student
     - POST:
